@@ -5,10 +5,22 @@ $('document').ready(function()
 
 function initBoard()
 {
-	setBoardLayout();
+	initBoardLayout();
+
 	var piecesData 								= getPiecePostitions();
 	positionPieces();
 }
+
+
+function initBoardLayout()
+{
+	setBoardLayout();
+	$( window ).resize( function()
+	{
+		setBoardLayout();
+	});
+}
+
 
 function setBoardLayout()
 {
@@ -35,8 +47,42 @@ function setBoardLayout()
 
 function getPiecePostitions(piecesData)
 {
-	var white {'p1':,'p2':,'p3':,'p4':,'p5':,'p6':,'p7':,'p8':,'qr':,'kr':,'qk':,'kk':,'qb':,'kb':,'q':,'k':};
-	var black {'p1':,'p2':,'p3':,'p4':,'p5':,'p6':,'p7':,'p8':,'qr':,'kr':,'qk':,'kk':,'qb':,'kb':,'q':,'k':};
+	var white 									= {
+		'p1'									: 'b1',
+		'p2'									: 'b2',
+		'p3'									: 'b3',
+		'p4'									: 'b4',
+		'p5'									: 'b5',
+		'p6'									: 'b6',
+		'p7'									: 'b7',
+		'p8'									: 'b8',
+		'qr'									: 'a1',
+		'kr'									: 'a8',
+		'qk'									: 'a2',
+		'kk'									: 'a7',
+		'qb'									: 'a3',
+		'kb'									: 'a6',
+		'q'										: 'a4',
+		'k'										: 'a5'
+	};
+	var black 									= {
+		'p1'									: 'b1',
+		'p2'									: 'b2',
+		'p3'									: 'b3',
+		'p4'									: 'b4',
+		'p5'									: 'b5',
+		'p6'									: 'b6',
+		'p7'									: 'b7',
+		'p8'									: 'b8',
+		'qr'									: 'a1',
+		'kr'									: 'a8',
+		'qk'									: 'a2',
+		'kk'									: 'a7',
+		'qb'									: 'a3',
+		'kb'									: 'a6',
+		'q'										: 'a4',
+		'k'										: 'a5'
+	};
 	return {'white': white, 'black': black};
 }
 
