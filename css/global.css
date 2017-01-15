@@ -1,0 +1,39 @@
+body,
+.board-container
+{
+	width:							100%;
+	height:							100%;
+	margin:							0;
+	padding:						0;
+}
+
+#board
+{
+	border:							1px solid orange;
+	background-color:				orange;
+}
+
+.row
+{
+	width:							100%;
+}
+
+.square
+{
+	margin:							0;
+	padding:						0;
+	float:							left;
+}
+
+/* white squares */
+#a .sq-1, #a .sq-3, #a .sq-5, #a .sq-7,
+#c .sq-1, #c .sq-3, #c .sq-5, #c .sq-7,
+#e .sq-1, #e .sq-3, #e .sq-5, #e .sq-7,
+#g .sq-1, #g .sq-3, #g .sq-5, #g .sq-7,
+#b .sq-2, #b .sq-4, #b .sq-6, #b .sq-8,
+#d .sq-2, #d .sq-4, #d .sq-6, #d .sq-8,
+#f .sq-2, #f .sq-4, #f .sq-6, #f .sq-8,
+#h .sq-2, #h .sq-4, #h .sq-6, #h .sq-8
+{
+	background-color:				#fff;
+}
