@@ -1,28 +1,28 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 body,
-.board-container
-{
-	width:							100%;
-	height:							100%;
-	margin:							0;
-	padding:						0;
+.board-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-#board
-{
-	border:							1px solid orange;
-	background-color:				orange;
+#board {
+    border: 1px solid orange;
+    background-color: orange;
 }
 
-.row
-{
-	width:							100%;
+.row {
+    width: 100%;
 }
 
-.square
-{
-	margin:							0;
-	padding:						0;
-	float:							left;
+.square {
+    margin: 0;
+    padding: 0;
+    float: left;
 }
 
 /* white squares */
@@ -33,7 +33,21 @@ body,
 #b .sq-2, #b .sq-4, #b .sq-6, #b .sq-8,
 #d .sq-2, #d .sq-4, #d .sq-6, #d .sq-8,
 #f .sq-2, #f .sq-4, #f .sq-6, #f .sq-8,
-#h .sq-2, #h .sq-4, #h .sq-6, #h .sq-8
-{
-	background-color:				#fff;
+#h .sq-2, #h .sq-4, #h .sq-6, #h .sq-8 {
+    background-color: #fff;
+}
+
+.chess-piece {
+    position: relative;
+    text-align: center;
+}
+
+.chess-piece.white {
+    background: #fff;
+    color: #000;
+}
+
+.chess-piece.black {
+    background: #000;
+    color: #fff;
 }
