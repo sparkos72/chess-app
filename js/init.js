@@ -80,22 +80,123 @@ function getPiecePositions() {
 
 function getPlaces(piecePlaces) {
     var white = piecePlaces.white;
-    $.each(white, function(piece, postition) {
+    $.each(white, function(pieceCode, postition) {
         getPlace(piece, postition, 'white')
     });
     var black = piecePlaces.black;
-    $.each(black, function(piece, postition) {
-        getPlace(piece, postition, 'black')
+    $.each(black, function(pieceCode, postition) {
+        placePiece(pieceCode, postition, 'black')
     });
 }
 
-function getPlace(piece, postition, colour) {
-    var chessPiece = placePiece(piece, colour);
-    $('#' + postition.col + ' .' + postition.row ).html(chessPiece);
+function placePiece(pieceCode, postition, colour) {
+    var pieceHTML = getPieceHTML(pieceCode, colour);
+    $('#' + postition.col + ' .' + postition.row ).html(pieceHTML);
 }
 
-function placePiece(piece, colour) {
-    var chessPiece = '<div class="chess-piece ' + piece + ' ' + colour + '" data-piece="' + piece + '">' + piece + '</div>';
+function getPieceHTML(pieceCode, colour) {
+    var pieceHTML = '<div class="chess-piece ' + pieceCode + ' ' + colour + '" data-piece-code="' + pieceCode + '">' + pieceCode + '</div>';
+    return pieceHTML;
+}
+
+function enablePieces() {
+    if (chessGame.currentPlayer == 'white') {
+        $('chess-piece.whote').removeClass('disabled');
+        $('chess-piece.black').addClass('disabled');
+    }
+    setActivePieces(chessGame.currentPlayer);
+}
+
+function setActivePieces() {
+    $('chess-piece').removeClass('active');
+    $('.chess-piece').each(function() {
+        if (! $(this).hasClass('disabled')) {
+            // get position
+            var col = $(this).parents('.square:first').data('col');
+            var row = $(this).parents('.row:first').data('row');
+            // get piece
+            var chessPieceType = translateCPCode($(this).data('piece'));
+            if (canMove(chessPieceType, col, row)) {
+                $(this).addClass('active');
+            }
+        }
+    });
+}
+
+function canMove(chessPieceType, col, row) {
+    var moveDirections = getMovesDirections(chessPieceType);
+}
+
+
+function isEmpty(col, row) {
+
+}
+
+function getMovesDirections(chessPieceType) {
+    var moveDirections = {};
+    switch (chessPieceType) {
+        case 'pawn':
+            moveDirections.row = ['1x','1e','1x'];
+            moveDirections.col = ['0','0','0'];
+            moveDirections.direction = ['single'];
+            moveDirections.limit = [1];
+            break;
+        case 'rook':
+            moveDirections.row = ['0','1','0'];
+            moveDirections.col = ['1','0','1'];
+            moveDirections.direction = ['multiple'];
+            moveDirections.limit = [0];
+            break;
+        case 'knight':
+            moveDirections.row = ['0','2','0'];
+            moveDirections.col = ['1','0','1'];
+            moveDirections.direction = ['combined'];
+            moveDirections.limit = [1];
+            break;
+        case 'bishop':
+            moveDirections.row = ['1','0','1'];
+            moveDirections.col = ['0','1','0'];
+            moveDirections.direction = ['multiple'];
+            moveDirections.limit = [0];
+            break;
+        case 'queen':
+            moveDirections.row = ['1','1','1'];
+            moveDirections.col = ['1','1','1'];
+            moveDirections.direction = ['multiple'];
+            moveDirections.limit = [0];
+            break;
+        case 'king':
+            moveDirections.row = ['1','1','1'];
+            moveDirections.col = ['1','1','1'];
+            moveDirections.direction = ['multiple'];
+            moveDirections.limit = [1];
+            break;
+    }
+}
+
+function translateCPCode(cpCode) {
+    chessPiece = '';
+    if (cpCode[0] == 'p') {
+            chessPiece = 'pawn';
+    } else {
+        switch (cpCode[1]) {
+            case 'r':
+                chessPiece = 'rook';
+                break;
+            case 'k':
+                chessPiece = 'knight';
+                break;
+            case 'b':
+                chessPiece = 'bishop';
+                break;
+            case 'u':
+                chessPiece = 'queen';
+                break;
+            case 'i':
+                chessPiece = 'king';
+                break;
+        }
+    }
     return chessPiece;
 }
 
@@ -138,61 +239,6 @@ function startingPiecePostitions(piecePlaces) {
     };
     return {'white': white, 'black': black};
 }
-
-function enablePieces() {
-    if (chessGame.currentPlayer == 'white') {
-        $('chess-piece.whote').removeClass('disabled');
-        $('chess-piece.black').addClass('disabled');
-    }
-    setActivePieces(chessGame.currentPlayer);
-}
-
-function setActivePieces() {
-    $('chess-piece').removeClass('active');
-    $('.chess-piece').each(function() {
-        if (! $(this).hasClass('disabled')) {
-            // get position
-            var col = $(this).parents('.square:first').data('col');
-            var row = $(this).parents('.row:first').data('row');
-            // get piece
-            var chessPiece = translateCPCode($(this).data('piece'));
-            if (canMove(chessPiece, col, row)) {
-                $(this).addClass('active');
-            }
-        }
-    });
-}
-
-function translateCPCode(cpCode) {
-    chessPiece = '';
-    if (cpCode[0] == 'p') {
-            chessPiece = 'pawn';
-    } else {
-        switch (cpCode[1]) {
-            case 'r':
-                chessPiece = 'rook';
-                break;
-            case 'k':
-                chessPiece = 'knight';
-                break;
-            case 'b':
-                chessPiece = 'bishop';
-                break;
-            case 'u':
-                chessPiece = 'queen';
-                break;
-            case 'i':
-                chessPiece = 'king';
-                break;
-        }
-    }
-    return chessPiece;
-}
-
-function canMove(chessPiece, col, row) {
-
-}
-
 /*
 p1
 p2
